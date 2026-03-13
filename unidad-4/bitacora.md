@@ -228,5 +228,11 @@ void ofApp::dragEvent(ofDragInfo dragInfo) { }
 
 void ofApp::gotMessage(ofMessage msg) { }
 ~~~
+#### Evidencia_1
+
+Explicación
+La imagen muestra que la cola está vacía antes de insertar el primer elemento: front == NULL, rear == NULL y size == 0. También se observa que newNode ya fue creado y tiene valores concretos: x y y corresponden a la posición del mouse al momento del evento, radius está dentro del rango aleatorio definido (10 a 20), color aparece con sus componentes (en VS normalmente como RGBA) y opacity con 255. El cursor de ejecución está exactamente sobre front = rear = newNode;, es decir, a punto de inicializar los extremos de la cola.
+Justificación
+El estado previo con rear == NULL activa la rama de inicialización del primer nodo; al ejecutar front = rear = newNode se establecen simultáneamente ambos extremos de la cola apuntando al mismo nodo recién creado. Esto demuestra que, partiendo de una cola vacía, la primera inserción deja la estructura en un estado válido con un único elemento accesible por front y rear, y con el siguiente paso (size++) se actualizará el tamaño a 1. Esta secuencia cumple exactamente con la evidencia solicitada de “inserción del primer nodo en una cola vacía (enqueue)”.
 
 ## Bitácora de reflexión
