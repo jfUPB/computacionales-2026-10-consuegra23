@@ -431,4 +431,22 @@ private:
 Se agregaron las dos cosas que pedia la actividad, primero fue la particula, Nebula, la cual es azul claro y significativamente mas grande que todas las demas.
 Posteriormente se agrego Orbit, como state, el cual hace que las particulas orbiten a su alrededor y entre mas cerca de el estan "brillen" de un color naranja muy intenso.
 
+### Evidencia 1 — Tu nueva partícula en la Factory
+
+<img width="610" height="340" alt="image" src="https://github.com/user-attachments/assets/ebb29033-ba7e-46f4-8f1f-028d797380c9" />
+
+<img width="1083" height="520" alt="image" src="https://github.com/user-attachments/assets/6b48b862-fc74-4bf7-925e-777082cf8cb0" />
+
+El código cumple la creación correcta de la partícula nebula en el método ParticleFactory::createParticle, donde al recibir el parámetro type con valor "nebula" se ejecuta la rama correspondiente del condicional else if. En esta sección se asigna a la partícula un tamaño mayor, un color azul verdoso con transparencia y una velocidad reducida, lo que define sus características visuales y de movimiento. La captura del depurador demuestra este comportamiento al mostrar que el breakpoint se detiene dentro del bloque type == "nebula" y que el valor de type es efectivamente "nebula", confirmando que dicha rama se ejecuta y que la partícula es creada según lo esperado.
+
+### Evidencia 2 — Tu nuevo estado en la _vtable
+
+Evidencia 2 — Tu nuevo estado en la _vtable
+Demuestra que tu nuevo estado tiene su propia entrada en la _vtable. Captura la _vtable de una partícula en tu nuevo estado y compárala con la de una partícula en NormalState. ¿Qué entradas cambian? ¿Por qué?
+
+<img width="1282" height="485" alt="image" src="https://github.com/user-attachments/assets/7209a377-e486-469b-b1fd-20244840ac73" />
+<img width="1087" height="412" alt="image" src="https://github.com/user-attachments/assets/e1984592-83e1-4b6c-8761-954390b396c0" />
+
+El código garantiza que cada estado tenga su propia entrada en la _vtable porque State define métodos virtuales (update, onEnter, onExit) y cada clase derivada (NormalState y OrbitState) los implementa o sobreescribe. Esto hace que, cuando una partícula cambia de estado, el puntero state apunte a un objeto de una clase distinta y, por tanto, a una _vtable diferente, lo cual es la base del polimorfismo en C++. Las capturas del depurador lo demuestran claramente: en la primera, tomada en Particle::update, el campo state es de tipo NormalState y su _vtable contiene entradas que apuntan a NormalState::update y NormalState::onEnter. En la segunda captura, tomada dentro de OrbitState::update, el puntero this corresponde a un objeto OrbitState y su _vtable muestra direcciones distintas que apuntan a OrbitState::update, OrbitState::onEnter y OrbitState::onExit. La diferencia entre ambas _vtable confirma que el nuevo estado OrbitState tiene su propia entrada y comportamiento independiente, y explica por qué la misma llamada virtual state->update(this) ejecuta código diferente según el estado activo de la partícula.
+
 ## Bitácora de reflexión
