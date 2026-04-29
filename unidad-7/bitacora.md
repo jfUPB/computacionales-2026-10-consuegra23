@@ -200,4 +200,8 @@ de nuevo, no cambio nada.
 Puedo concluir que no se me es posible romper la rotacion sobre el eje que realiza el triangulo modificando sus parametros, pues al todos los calculos ser realizados con coordenadas polares, al ya esperar el siguiente estado pues es ciclico y sigue una funcion matematica, no se puede alterar.
 
 ### Evidencia 5 — Responsabilidad del pipeline
+
+#### Por que se utlizan uniforms en este codigo
+En este código, los datos se envían como uniforms y no como atributos de vértice porque tanto el color (uColor) como el desplazamiento (uOffset) se aplican de forma global a todo el triángulo y no varían entre sus vértices. Los atributos están pensados para definir información distinta por vértice, como la posición almacenada en el VBO, que describe la geometría base del objeto. En cambio, los uniforms permiten enviar valores únicos por draw call que son compartidos por todos los vértices procesados por el shader, lo que los hace ideales para parámetros dinámicos como el color y la posición del objeto completo. De esta manera, el triángulo puede cambiar de color y moverse en pantalla sin modificar los datos del VBO, manteniendo la geometría intacta y respetando la correcta separación de responsabilidades dentro del pipeline gráfico.
+
 ## Bitácora de reflexión
